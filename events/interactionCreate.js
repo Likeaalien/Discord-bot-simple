@@ -1,4 +1,9 @@
 const { Events } = require('discord.js');
+/**
+ * @dev We define event names and activate the function when an event occurs within InteractionCreate. 
+ * 		This function receives the interaction argument within the Discord server. Subsequently, it attempts 
+ * 		to locate the corresponding command based on the name provided in the interaction.
+ */
 
 module.exports = {
 	name: Events.InteractionCreate,

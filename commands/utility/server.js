@@ -1,7 +1,10 @@
 const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
-	// server's name and number of memebers
+	/**
+	 * @dev We're creating a new function within SlashCommandBuilder, where we set its name and description. 
+	 * 		This function executes upon interaction, providing information about the server's name and member count when called.   
+	 */ 
 	data: new SlashCommandBuilder()
 		.setName('server')
 		.setDescription('Provides information about the server.'),

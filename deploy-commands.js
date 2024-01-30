@@ -10,19 +10,23 @@ const {
 const fs = require('node:fs');
 const path = require('node:path');
 
- //Declares a variable named commands and assigns it the value of an empty array ([]).
+ /**
+  * @dev Declares a variable named commands and assigns it the value of an empty array ([]).
+  */
 const commands = [];
 
-// Grab all the command folders from the commands directory you created earlier
+/**
+ * @dev Here, we're scanning the commands directory, reading files with a .js extension, and verifying 
+ * 		whether each file contains an object named command with both data and execute properties. 
+ * 		If this condition is met, we add it to the commands array.
+ */
 
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
 
 for (const folder of commandFolders) {
-	// Grab all the command files from the commands directory you created earlier
 	const commandsPath = path.join(foldersPath, folder);
 	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
-	// Grab the SlashCommandBuilder#toJSON() output of each command's data for deployment
 	for (const file of commandFiles) {
 		const filePath = path.join(commandsPath, file);
 		const command = require(filePath);
@@ -33,19 +37,16 @@ for (const folder of commandFolders) {
 		}
 	}
 }
-//Connect it to /commands and only looks for .js files
-const commandFiles=fs
-	.readdirSync("./commands")
-	.filter((file) => file.endsWith(".js"));
 
-for (const file of commandFiles){
-	const command = require(`./config.json/${file}`);
-	commands.push(command.data.toJSON());
-}
-
-// Construct and prepare an instance of the REST module
+/**
+ * @dev Construct and prepare an instance of the REST module
+ */ 
 const rest = new REST({ version: '10' }).setToken(token);
 
+/**
+ * @dev Here, we update the list of application (/) commands on the Discord server, using clientId and guildId to 
+ * 		specify the application and server, respectively.
+ */
 
 (async () => {
 	try {
